@@ -20,16 +20,74 @@ public class SistemaEstacionamiento {
         //Inicializar el tablero
         inicializarTablero();
 
-        //Mostrar el tablero inicial
-        mostrarEstacionamiento();
-        
-        System.out.println();
+        int opcion = 0;
 
-        //Menu principal
-        System.out.println("==== SISTEMA DE ESTACIONAMIENTO ====");
+        while (opcion !=7) {
+
+            System.out.println("===== SISTEMA DE ESTACIONAMIENTO =====");
+            System.out.println("1. Ingresar vehículo.");
+            System.out.println("2. Retirar vehículo.");
+            System.out.println("3. Mostrar estacionamiento.");
+            System.out.println("4. Buscar vehículo por placa.");
+            System.out.println("5. Mostrar ruta más corta entre entrada y salida.");
+            System.out.println("6. Mostrar ingresos.");
+            System.out.println("7. Salir.");
+
+            opcion = scanner.nextInt();
+
+            switch (opcion) {
+                case 1: //Módulo 1: Ingresar vehículo
+                    
+                    ingresarVehiculo();
+
+                    break;
+
+                case 2: //Módulo 2: Retirar vehículo
+
+                    retirarVehiculo();
+
+                    break;
+
+                case 3: //Módulo 3: Mostrar estacionamiento
+
+                    mostrarEstacionamiento();
+
+                    break;
+
+                case 4: //Módulo 4: Buscar vehiculo por placa
+
+                    buscarVehiculo();
+
+                    break;
+
+                case 5: //Módulo 5: Mostrar ruta más corta entre entrada y salida
+
+                    mostrarRuta();
+
+                    break;
+
+                case 6: //Módulo 6: Mostrar ingresos
+
+                    ingresosEstacionamiento();
+
+                    break;
+
+                case 7: //Módulo 7: Salir del programa
+
+                    System.out.println("Salio del programa correctamente...");
+
+                    break;
+            
+                default:
+
+                    System.out.println("Opción inválida. Vuelva a intentarlo");
+
+                    break;
+            }
+        }
     }
 
-    // Vías exteriores (´=´) en los bordes y lugares libres (´L´) en el interior
+    // Vías exteriores ("=") en los bordes y lugares libres ("L") en el interior
     public static void inicializarTablero() {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
@@ -40,6 +98,20 @@ public class SistemaEstacionamiento {
                 }
             }
         }
+    }
+
+    //Módulo 1.
+    public static void ingresarVehiculo() {
+
+        System.out.println("EN DESARROLLO...");
+
+    }
+
+    //Módulo 2.
+    public static void retirarVehiculo() {
+
+        System.out.println("EN DESARROLLO...");
+
     }
 
     /**
@@ -60,5 +132,26 @@ public class SistemaEstacionamiento {
             }
             System.out.println(); //Salto de línea después de cada fila
         }
+    }
+
+    //Módulo 4.
+    public static void buscarVehiculo() {
+        
+        System.out.println("EN DESARROLLO...");
+
+    }
+
+    //Módulo 5.
+    public static void mostrarRuta() {
+
+        System.out.println("EN DESARROLLO...");
+
+    }
+
+    //Módulo 6.
+    public static void ingresosEstacionamiento() {
+
+        System.out.println("EN DESARROLLO...");
+
     }
 }
