@@ -103,8 +103,81 @@ public class SistemaEstacionamiento {
     //Módulo 1.
     public static void ingresarVehiculo() {
 
-        System.out.println("EN DESARROLLO...");
+        if (vehiculos_ingresados == 64) {
+            System.out.println("[ERROR]: El estacionamiento se encuentra lleno");
+            return;
+        }
 
+        System.out.println("Ingresar la placa: ");//Formato [P###LLL]
+        String placa = scanner.next();
+
+        if(!placa.equals(placa.toUpperCase())){
+            System.out.println("[ERROR] No se admiten minusculas. Intentelo de nuevo.");
+        }
+        /*
+        Reglas del formato: 1. Tener 7 caracteres, 2. Empezar con P, 3. posición 1, 2, 3 numeros, 4. posicion 4, 5, 6 letras
+         */
+
+        if (!placa.matches("^P[0-9]{3}[A-Z]{3}$")){
+            System.out.println("[ERROR] La placa debe tener el formato P###LLL. Intentelo de nuevo.");
+            return;
+        }
+
+        for (int i=1; i<=8; i++) {
+            for (int j=1; j<=8; j++) {
+                if (tablero[i][j].equals(placa)) {
+                    System.out.println("[ERROR] El vehiculo ya se encuentra dentro del estacionamiento. Intentelo de nuevo.");
+                    return;
+                }
+            }
+        }
+
+        System.out.println("Fila en la que desea estacionar (1-8): ");
+        int fila = scanner.nextInt();
+
+        if (fila<1 || fila>8) {
+            System.out.println("[ERROR] Fila fuera de rango. Intentelo de nuevo.");
+            return;
+        }
+
+        System.out.println("Columna en la que desea estacionar (1-8): ");
+        int columna = scanner.nextInt();
+
+        if (columna<1 || columna>8) {
+            System.out.println("[ERROR] Columna fuera de rango. Intentelo de nuevo.");
+            return;
+        }
+
+        if(!tablero[fila][columna].equals("L")) {
+            System.out.println("[ERROR] El espacio ya ocupado. Intentelo de nuevo.");
+            return;
+        }
+        //Cobro
+        System.out.println("La tarifa es de: Q" + tarifa);
+
+        System.out.println("Ingrese el monto: ");
+        double monto = scanner.nextDouble();
+
+        if (monto<0) {
+            System.out.println("[ERROR] No se admiten montos negativos. Intentelo de nuevo.");
+            return;
+        }
+
+        if (monto>=0 && monto<10) {
+            System.out.println("[ERROR] Monto insuficiente. Intentelo de nuevo.");
+            return;
+        }
+
+        double cambio = 0;
+        cambio = monto - tarifa;
+
+        System.out.println("El cambio es de: " + cambio);
+
+        vehiculos_ingresados = vehiculos_ingresados + 1;
+        total_recaudado = total_recaudado + tarifa;
+
+        tablero[fila][columna] = placa;
+        System.out.println("¡Vehiculo registrado correctamente!");
     }
 
     //Módulo 2.
@@ -119,7 +192,7 @@ public class SistemaEstacionamiento {
      * incluyendo guías de números para filas y columnas, así como los símbolos que representan las vías exteriores y los lugares libres.
      */
     public static void mostrarEstacionamiento() {
-        System.out.println("\n   0 1 2 3 4 5 6 7 8 9"); //Encabezado de columnas
+        System.out.println("\n   0 1 2 3 4 5 6 7 8"); //Encabezado de columnas
         for (int i = 0; i < 10; i++) {
             if (i > 0 && i < 9) {
                 System.out.print(i + " "); //Encabezado de filas
