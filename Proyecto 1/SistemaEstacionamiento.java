@@ -192,7 +192,7 @@ public class SistemaEstacionamiento {
      * incluyendo guías de números para filas y columnas, así como los símbolos que representan las vías exteriores y los lugares libres.
      */
     public static void mostrarEstacionamiento() {
-        System.out.println("\n   0 1 2 3 4 5 6 7 8"); //Encabezado de columnas
+        System.out.println("\n    1 2 3 4 5 6 7 8"); //Encabezado de columnas
         for (int i = 0; i < 10; i++) {
             if (i > 0 && i < 9) {
                 System.out.print(i + " "); //Encabezado de filas
@@ -201,10 +201,20 @@ public class SistemaEstacionamiento {
             }
 
             for (int j = 0; j < 10; j++) {
-                System.out.print(tablero[i][j] + " ");
+
+                if (!tablero[i][j].equals("=") && !tablero[i][j].equals("L")) {
+                    System.out.print("A ");
+                } else {
+                    System.out.print(tablero[i][j] + " ");
+                }
             }
             System.out.println(); //Salto de línea después de cada fila
         }
+
+        int espacio_libre = 64 - vehiculos_ingresados;
+
+        System.out.println("La cantidad de espacios ocupados es de: " + vehiculos_ingresados);
+        System.out.println("La cantidad de espacios libres es de: " + espacio_libre);
     }
 
     //Módulo 4.
