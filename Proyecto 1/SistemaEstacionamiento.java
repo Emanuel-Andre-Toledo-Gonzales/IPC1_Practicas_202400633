@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Random;
 
 public class SistemaEstacionamiento {
 
@@ -21,6 +22,8 @@ public class SistemaEstacionamiento {
         //Inicializar el tablero
         inicializarTablero();
 
+        generarEntradaSalida();
+
         int opcion = 0;
 
         while (opcion !=7) {
@@ -38,51 +41,35 @@ public class SistemaEstacionamiento {
 
             switch (opcion) {
                 case 1: //Módulo 1: Ingresar vehículo
-                    
                     ingresarVehiculo();
-
                     break;
 
                 case 2: //Módulo 2: Retirar vehículo
-
                     retirarVehiculo();
-
                     break;
 
                 case 3: //Módulo 3: Mostrar estacionamiento
-
                     mostrarEstacionamiento();
-
                     break;
 
                 case 4: //Módulo 4: Buscar vehiculo por placa
-
                     buscarVehiculo();
-
                     break;
 
                 case 5: //Módulo 5: Mostrar ruta más corta entre entrada y salida
-
                     mostrarRuta();
-
                     break;
 
                 case 6: //Módulo 6: Mostrar ingresos
-
                     ingresosEstacionamiento();
-
                     break;
 
                 case 7: //Módulo 7: Salir del programa
-
                     System.out.println("Salio del programa correctamente...");
-
                     break;
             
                 default:
-
                     System.out.println("Opción inválida. Vuelva a intentarlo");
-
                     break;
             }
         }
@@ -101,7 +88,9 @@ public class SistemaEstacionamiento {
         }
     }
 
-    //Módulo 1.
+    /**
+     * Módulo 1: Ingresar vehiculo, pedir la placa como verificar su estructura, también hacer el cobro de la tarifa y entregar cambio.
+     */
     public static void ingresarVehiculo() {
 
         if (vehiculos_ingresados == 64) {
@@ -173,7 +162,7 @@ public class SistemaEstacionamiento {
         double cambio = 0;
         cambio = monto - tarifa;
 
-        System.out.println("El cambio es de: " + cambio);
+        System.out.println("El cambio es de: Q" + cambio);
 
         vehiculos_ingresados = vehiculos_ingresados + 1;
         vehiculos_cobrados = vehiculos_cobrados + 1;
@@ -183,7 +172,9 @@ public class SistemaEstacionamiento {
         System.out.println("¡Vehiculo registrado correctamente!");
     }
 
-    //Módulo 2.
+    /**
+     * Módulo 2: Retirar vehiculo por placa. Pedir confirmación antes de eliminar el vehículo
+     */
     public static void retirarVehiculo() {
         System.out.println("Ingresar la placa: ");//Formato [P###LLL]
         String placa = scanner.next();
@@ -240,8 +231,7 @@ public class SistemaEstacionamiento {
     }
 
     /**
-     * Módulo 3: Imprimir el tablero completo de 10x10 en la consola,
-     * incluyendo guías de números para filas y columnas, así como los símbolos que representan las vías exteriores y los lugares libres.
+     * Módulo 3: Imprimir el tablero completo de 10x10 en la consola, incluyendo guías de números para filas y columnas, así como los símbolos que representan las vías exteriores y los lugares libres.
      */
     public static void mostrarEstacionamiento() {
         System.out.println("\n    1 2 3 4 5 6 7 8"); //Encabezado de columnas
@@ -254,7 +244,7 @@ public class SistemaEstacionamiento {
 
             for (int j = 0; j < 10; j++) {
 
-                if (!tablero[i][j].equals("=") && !tablero[i][j].equals("L")) {
+                if (!tablero[i][j].equals("=") && !tablero[i][j].equals("L") && !tablero[i][j].equals("E") && !tablero[i][j].equals("S")) {
                     System.out.print("A ");
                 } else {
                     System.out.print(tablero[i][j] + " ");
@@ -269,7 +259,9 @@ public class SistemaEstacionamiento {
         System.out.println("La cantidad de espacios libres es de: " + espacio_libre);
     }
 
-    //Módulo 4.
+    /**
+     * Módulo 4: Buscar vehículo por placa y mostrar la fila y columna en la que se encuentra.
+     */
     public static void buscarVehiculo() {
         System.out.println("Ingresar la placa: ");//Formato [P###LLL]
         String placa = scanner.next();
@@ -306,14 +298,18 @@ public class SistemaEstacionamiento {
             System.out.println("El vehículo se encuentra en la fila: " + filaEncontrada + " y columna: " + columnaEncontrada);
     }
 
-    //Módulo 5.
+    /**
+     * Módulo 5: Mostrar la ruta más corta entre la entrada y la salida del estacionamiento.
+     */
     public static void mostrarRuta() {
 
         System.out.println("EN DESARROLLO...");
 
     }
 
-    //Módulo 6.
+    /**
+     * Módulo 6: Mostrar todos los ingresos, los vehículos cobrados y el total recaudado durante toda la ejecución del programa.
+     */
     public static void ingresosEstacionamiento() {
 
         total_recaudado = tarifa * vehiculos_cobrados;
@@ -322,6 +318,55 @@ public class SistemaEstacionamiento {
         System.out.println("");
         System.out.println("Vehiculos cobrados: " + vehiculos_cobrados);
         System.out.println("Tarifa por vehículo: Q10.00");
-        System.out.println("El total de ingresos es de: " + total_recaudado);
+        System.out.println("El total de ingresos es de: Q" + total_recaudado);
+    }
+    /**
+     * Módulo para generar la entrada y salida de forma aleatoria, se asegurá que no queden en el mismo lugar y que no esten en las esquinas.
+     */
+    public static void generarEntradaSalida() {
+        Random random = new Random();
+
+        //Generación aleatoria de la entrada.
+        //Se decide una calle al azar: 1-Arriba, 2-Abajo, 3-Izquierda, 4-Derecha.
+        int entrada = random.nextInt(4) + 1;
+        int posicionEntrada = random.nextInt(8) + 1; //Entre 1 y 8 para evitar las esquinas (0 y 9)
+
+        if (entrada == 1) {
+            entrada_fila = 0;
+            entrada_columna = posicionEntrada;
+        } else if (entrada == 2) {
+            entrada_fila = 9;
+            entrada_columna = posicionEntrada;
+        } else if (entrada == 3) {
+            entrada_fila = posicionEntrada;
+            entrada_columna = 0;
+        } else {
+            entrada_fila = posicionEntrada;
+            entrada_columna = 9;
+        }
+
+        //Generación aleatoria de la salida.
+        //Se usa el bucle dowhile para que se repita el ciclo si la entrada y la salida coincide en la misma posición.
+        do {
+            int salida = random.nextInt(4) + 1; //+ 1 para pasar de las posiciones 0, 1, 2, 3 a 1, 2, 3, 4.
+            int posicionSalida = random.nextInt(8) + 1;
+
+            if (salida == 1) {
+                salida_fila = 0;
+                salida_columna = posicionSalida;
+            } else if (salida == 2) {
+                salida_fila = 9;
+                salida_columna = posicionSalida;
+            } else if (salida == 3) {
+                salida_fila = posicionSalida;
+            } else {
+                salida_fila = posicionSalida;
+                salida_columna = 9;
+            }
+        } while (entrada_fila == salida_fila && entrada_columna == salida_columna);
+
+        tablero[entrada_fila][entrada_columna] = "E";
+        tablero[salida_fila][salida_columna] = "S";
+
     }
 }
