@@ -7,6 +7,7 @@ public class SistemaEstacionamiento {
 
     //Variables ha usar
     public static int vehiculos_ingresados = 0;
+    public static int vehiculos_cobrados = 0;
     public static double total_recaudado = 0.0;
     public static double tarifa = 10.0; //tarifa por vehiculo
 
@@ -113,6 +114,7 @@ public class SistemaEstacionamiento {
 
         if(!placa.equals(placa.toUpperCase())){
             System.out.println("[ERROR] No se admiten minusculas. Intentelo de nuevo.");
+            return;
         }
         /*
         Reglas del formato: 1. Tener 7 caracteres, 2. Empezar con P, 3. posición 1, 2, 3 numeros, 4. posicion 4, 5, 6 letras
@@ -174,6 +176,7 @@ public class SistemaEstacionamiento {
         System.out.println("El cambio es de: " + cambio);
 
         vehiculos_ingresados = vehiculos_ingresados + 1;
+        vehiculos_cobrados = vehiculos_cobrados + 1;
         total_recaudado = total_recaudado + tarifa;
 
         tablero[fila][columna] = placa;
@@ -182,9 +185,58 @@ public class SistemaEstacionamiento {
 
     //Módulo 2.
     public static void retirarVehiculo() {
+        System.out.println("Ingresar la placa: ");//Formato [P###LLL]
+        String placa = scanner.next();
 
-        System.out.println("EN DESARROLLO...");
+        if(!placa.equals(placa.toUpperCase())){
+            System.out.println("[ERROR] No se admiten minusculas. Intentelo de nuevo.");
+            return;
+        }
+        /*
+        Reglas del formato: 1. Tener 7 caracteres, 2. Empezar con P, 3. posición 1, 2, 3 numeros, 4. posicion 4, 5, 6 letras
+         */
 
+        if (!placa.matches("^P[0-9]{3}[A-Z]{3}$")){
+            System.out.println("[ERROR] La placa debe tener el formato P###LLL. Intentelo de nuevo.");
+            return;
+        }
+
+        int filaEncontrada = -1;
+        int columnaEncontrada = -1;
+
+        for(int i=1; i<=8; i++){
+            for(int j=1; j<=8; j++) {
+                if (tablero[i][j].equals(placa)) { //Si el tablero encuentra una fila y columna que sea igual a la placa los valores se cambiaran
+                    filaEncontrada = i;
+                    columnaEncontrada = j;
+                    break;
+                }
+            }
+        }
+        if (filaEncontrada == -1) {
+            System.out.println("[ERROR] La placa no existe en el estacionamiento. Intentelo de nuevo.");
+            return;
+        }
+            System.out.println("El vehículo que encuentra en la fila: " + filaEncontrada + " y columna: " + columnaEncontrada + " será eliminado.");
+
+        System.out.println("¿Esta seguro que desea eliminar la placa? (S/N)");
+        String confirmacion = scanner.next();
+
+            if (!confirmacion.equalsIgnoreCase("S") && !confirmacion.equalsIgnoreCase("N")) {
+                System.out.println("[ERROR] Signo inválido. Intentelo de nuevo.");
+                return;
+            }
+
+            if (confirmacion.equalsIgnoreCase("S")) {
+                tablero[filaEncontrada][columnaEncontrada] = "L";
+
+                vehiculos_ingresados = vehiculos_ingresados - 1;
+                System.out.println("Vehículo retirado exitosamente");
+            } else {
+                System.out.println("-Operación cancelada-");
+            }
+
+        
     }
 
     /**
@@ -212,16 +264,46 @@ public class SistemaEstacionamiento {
         }
 
         int espacio_libre = 64 - vehiculos_ingresados;
-
+        System.out.println("");
         System.out.println("La cantidad de espacios ocupados es de: " + vehiculos_ingresados);
         System.out.println("La cantidad de espacios libres es de: " + espacio_libre);
     }
 
     //Módulo 4.
     public static void buscarVehiculo() {
-        
-        System.out.println("EN DESARROLLO...");
+        System.out.println("Ingresar la placa: ");//Formato [P###LLL]
+        String placa = scanner.next();
 
+        if(!placa.equals(placa.toUpperCase())){
+            System.out.println("[ERROR] No se admiten minusculas. Intentelo de nuevo.");
+            return;
+        }
+        /*
+        Reglas del formato: 1. Tener 7 caracteres, 2. Empezar con P, 3. posición 1, 2, 3 numeros, 4. posicion 4, 5, 6 letras
+         */
+
+        if (!placa.matches("^P[0-9]{3}[A-Z]{3}$")){
+            System.out.println("[ERROR] La placa debe tener el formato P###LLL. Intentelo de nuevo.");
+            return;
+        }
+
+        int filaEncontrada = -1;
+        int columnaEncontrada = -1;
+
+        for(int i=1; i<=8; i++){
+            for(int j=1; j<=8; j++) {
+                if (tablero[i][j].equals(placa)) { //Si el tablero encuentra una fila y columna que sea igual a la placa los valores se cambiaran
+                    filaEncontrada = i;
+                    columnaEncontrada = j;
+                    break;
+                }
+            }
+        }
+        if (filaEncontrada == -1) {
+            System.out.println("[ERROR] La placa no existe en el estacionamiento. Intentelo de nuevo.");
+            return;
+        }
+            System.out.println("El vehículo se encuentra en la fila: " + filaEncontrada + " y columna: " + columnaEncontrada);
     }
 
     //Módulo 5.
@@ -234,7 +316,12 @@ public class SistemaEstacionamiento {
     //Módulo 6.
     public static void ingresosEstacionamiento() {
 
-        System.out.println("EN DESARROLLO...");
+        total_recaudado = tarifa * vehiculos_cobrados;
 
+        System.out.println("===== INGRESOS =====");
+        System.out.println("");
+        System.out.println("Vehiculos cobrados: " + vehiculos_cobrados);
+        System.out.println("Tarifa por vehículo: Q10.00");
+        System.out.println("El total de ingresos es de: " + total_recaudado);
     }
 }
