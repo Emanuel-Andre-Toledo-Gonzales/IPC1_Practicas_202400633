@@ -36,42 +36,50 @@ public class SistemaEstacionamiento {
             System.out.println("5. Mostrar ruta más corta entre entrada y salida.");
             System.out.println("6. Mostrar ingresos.");
             System.out.println("7. Salir.");
-
-            opcion = scanner.nextInt();
-
-            switch (opcion) {
-                case 1: //Módulo 1: Ingresar vehículo
-                    ingresarVehiculo();
-                    break;
-
-                case 2: //Módulo 2: Retirar vehículo
-                    retirarVehiculo();
-                    break;
-
-                case 3: //Módulo 3: Mostrar estacionamiento
-                    mostrarEstacionamiento();
-                    break;
-
-                case 4: //Módulo 4: Buscar vehiculo por placa
-                    buscarVehiculo();
-                    break;
-
-                case 5: //Módulo 5: Mostrar ruta más corta entre entrada y salida
-                    mostrarRuta();
-                    break;
-
-                case 6: //Módulo 6: Mostrar ingresos
-                    ingresosEstacionamiento();
-                    break;
-
-                case 7: //Módulo 7: Salir del programa
-                    System.out.println("Salio del programa correctamente...");
-                    break;
             
-                default:
-                    System.out.println("Opción inválida. Vuelva a intentarlo");
-                    break;
+
+            if (scanner.hasNextInt()) {
+
+                opcion = scanner.nextInt();
+
+                switch (opcion) {
+                    case 1: //Módulo 1: Ingresar vehículo 
+                        ingresarVehiculo();
+                        break;
+
+                    case 2: //Módulo 2: Retirar vehículo
+                        retirarVehiculo();
+                        break;
+
+                    case 3: //Módulo 3: Mostrar estacionamiento
+                        mostrarEstacionamiento();
+                        break;
+
+                    case 4: //Módulo 4: Buscar vehiculo por placa
+                        buscarVehiculo();
+                        break;
+
+                    case 5: //Módulo 5: Mostrar ruta más corta entre entrada y salida
+                        mostrarRuta();
+                        break;
+
+                    case 6: //Módulo 6: Mostrar ingresos
+                        ingresosEstacionamiento();
+                        break;
+
+                    case 7: //Módulo 7: Salir del programa
+                        System.out.println("Salio del programa correctamente...");
+                        break;
+                
+                    default:
+                        System.out.println("Opción inválida. Vuelva a intentarlo");
+                        break;
+                }
+            } else {
+                System.out.println("[ERROR] No se permiten letras. Intentelo de nuevo.");
+                scanner.next();
             }
+            
         }
     }
 
