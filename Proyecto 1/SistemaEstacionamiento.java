@@ -36,6 +36,7 @@ public class SistemaEstacionamiento {
             System.out.println("5. Mostrar ruta más corta entre entrada y salida.");
             System.out.println("6. Mostrar ingresos.");
             System.out.println("7. Salir.");
+            System.out.println("");
             
 
             if (scanner.hasNextInt()) {
@@ -69,18 +70,22 @@ public class SistemaEstacionamiento {
 
                     case 7: //Módulo 7: Salir del programa
                         System.out.println("Salio del programa correctamente...");
+                        System.out.println("");
                         break;
                 
                     default:
                         System.out.println("Opción inválida. Vuelva a intentarlo");
+                        System.out.println("");
                         break;
                 }
             } else {
                 System.out.println("[ERROR] No se permiten letras. Intentelo de nuevo.");
+                System.out.println("");
                 scanner.next();
             }
             
         }
+        System.out.println("");
     }
 
     // Vías exteriores ("=") en los bordes y lugares libres ("L") en el interior
@@ -103,6 +108,7 @@ public class SistemaEstacionamiento {
 
         if (vehiculos_ingresados == 64) {
             System.out.println("[ERROR]: El estacionamiento se encuentra lleno");
+            System.out.println("");
             return;
         }
 
@@ -111,6 +117,7 @@ public class SistemaEstacionamiento {
 
         if(!placa.equals(placa.toUpperCase())){
             System.out.println("[ERROR] No se admiten minusculas. Intentelo de nuevo.");
+            System.out.println("");
             return;
         }
         /*
@@ -119,6 +126,7 @@ public class SistemaEstacionamiento {
 
         if (!placa.matches("^P[0-9]{3}[A-Z]{3}$")){
             System.out.println("[ERROR] La placa debe tener el formato P###LLL. Intentelo de nuevo.");
+            System.out.println("");
             return;
         }
 
@@ -126,6 +134,7 @@ public class SistemaEstacionamiento {
             for (int j=1; j<=8; j++) {
                 if (tablero[i][j].equals(placa)) {
                     System.out.println("[ERROR] El vehiculo ya se encuentra dentro del estacionamiento. Intentelo de nuevo.");
+                    System.out.println("");
                     return;
                 }
             }
@@ -136,6 +145,7 @@ public class SistemaEstacionamiento {
 
         if (fila<1 || fila>8) {
             System.out.println("[ERROR] Fila fuera de rango. Intentelo de nuevo.");
+            System.out.println("");
             return;
         }
 
@@ -144,11 +154,13 @@ public class SistemaEstacionamiento {
 
         if (columna<1 || columna>8) {
             System.out.println("[ERROR] Columna fuera de rango. Intentelo de nuevo.");
+            System.out.println("");
             return;
         }
 
         if(!tablero[fila][columna].equals("L")) {
-            System.out.println("[ERROR] El espacio ya ocupado. Intentelo de nuevo.");
+            System.out.println("[ERROR] El espacio ya está ocupado. Intentelo de nuevo.");
+            System.out.println("");
             return;
         }
         //Cobro
@@ -159,11 +171,13 @@ public class SistemaEstacionamiento {
 
         if (monto<0) {
             System.out.println("[ERROR] No se admiten montos negativos. Intentelo de nuevo.");
+            System.out.println("");
             return;
         }
 
         if (monto>=0 && monto<10) {
             System.out.println("[ERROR] Monto insuficiente. Intentelo de nuevo.");
+            System.out.println("");
             return;
         }
 
@@ -178,6 +192,7 @@ public class SistemaEstacionamiento {
 
         tablero[fila][columna] = placa;
         System.out.println("¡Vehiculo registrado correctamente!");
+        System.out.println("");
     }
 
     /**
@@ -189,6 +204,7 @@ public class SistemaEstacionamiento {
 
         if(!placa.equals(placa.toUpperCase())){
             System.out.println("[ERROR] No se admiten minusculas. Intentelo de nuevo.");
+            System.out.println("");
             return;
         }
         /*
@@ -197,6 +213,7 @@ public class SistemaEstacionamiento {
 
         if (!placa.matches("^P[0-9]{3}[A-Z]{3}$")){
             System.out.println("[ERROR] La placa debe tener el formato P###LLL. Intentelo de nuevo.");
+            System.out.println("");
             return;
         }
 
@@ -214,15 +231,17 @@ public class SistemaEstacionamiento {
         }
         if (filaEncontrada == -1) {
             System.out.println("[ERROR] La placa no existe en el estacionamiento. Intentelo de nuevo.");
+            System.out.println("");
             return;
         }
-            System.out.println("El vehículo que encuentra en la fila: " + filaEncontrada + " y columna: " + columnaEncontrada + " será eliminado.");
+            System.out.println("El vehículo que encuentra en la fila " + filaEncontrada + " y columna " + columnaEncontrada + " será eliminado.");
 
         System.out.println("¿Esta seguro que desea eliminar la placa? (S/N)");
         String confirmacion = scanner.next();
 
             if (!confirmacion.equalsIgnoreCase("S") && !confirmacion.equalsIgnoreCase("N")) {
                 System.out.println("[ERROR] Signo inválido. Intentelo de nuevo.");
+                System.out.println("");
                 return;
             }
 
@@ -230,12 +249,11 @@ public class SistemaEstacionamiento {
                 tablero[filaEncontrada][columnaEncontrada] = "L";
 
                 vehiculos_ingresados = vehiculos_ingresados - 1;
-                System.out.println("Vehículo retirado exitosamente");
+                System.out.println("¡Vehículo retirado exitosamente!");
             } else {
-                System.out.println("-Operación cancelada-");
+                System.out.println("-----Operación cancelada-----");
             }
-
-        
+        System.out.println("");
     }
 
     /**
@@ -265,6 +283,7 @@ public class SistemaEstacionamiento {
         System.out.println("");
         System.out.println("La cantidad de espacios ocupados es de: " + vehiculos_ingresados);
         System.out.println("La cantidad de espacios libres es de: " + espacio_libre);
+        System.out.println("");
     }
 
     /**
@@ -276,6 +295,7 @@ public class SistemaEstacionamiento {
 
         if(!placa.equals(placa.toUpperCase())){
             System.out.println("[ERROR] No se admiten minusculas. Intentelo de nuevo.");
+            System.out.println("");
             return;
         }
         /*
@@ -284,6 +304,7 @@ public class SistemaEstacionamiento {
 
         if (!placa.matches("^P[0-9]{3}[A-Z]{3}$")){
             System.out.println("[ERROR] La placa debe tener el formato P###LLL. Intentelo de nuevo.");
+            System.out.println("");
             return;
         }
 
@@ -301,9 +322,11 @@ public class SistemaEstacionamiento {
         }
         if (filaEncontrada == -1) {
             System.out.println("[ERROR] La placa no existe en el estacionamiento. Intentelo de nuevo.");
+            System.out.println("");
             return;
         }
-            System.out.println("El vehículo se encuentra en la fila: " + filaEncontrada + " y columna: " + columnaEncontrada);
+        System.out.println("El vehículo se encuentra en la fila " + filaEncontrada + " y columna " + columnaEncontrada);
+        System.out.println("");
     }
 
     /**
@@ -312,7 +335,7 @@ public class SistemaEstacionamiento {
     public static void mostrarRuta() {
 
         System.out.println("EN DESARROLLO...");
-
+        System.out.println("");
     }
 
     /**
@@ -327,6 +350,7 @@ public class SistemaEstacionamiento {
         System.out.println("Vehiculos cobrados: " + vehiculos_cobrados);
         System.out.println("Tarifa por vehículo: Q10.00");
         System.out.println("El total de ingresos es de: Q" + total_recaudado);
+        System.out.println("");
     }
     /**
      * Módulo para generar la entrada y salida de forma aleatoria, se asegurá que no queden en el mismo lugar y que no esten en las esquinas.
@@ -375,6 +399,6 @@ public class SistemaEstacionamiento {
 
         tablero[entrada_fila][entrada_columna] = "E";
         tablero[salida_fila][salida_columna] = "S";
-
+        System.out.println("");
     }
 }
